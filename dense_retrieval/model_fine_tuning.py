@@ -51,7 +51,7 @@ def train_model(train_examples: list[InputExample], model_path: str, qrels_path:
     return model
 
 
-def encode_test_set(test: pd.DataFrame, test_path: str):
+def encode_test_set(corpus: dict, queries: dict, test: pd.DataFrame, test_path: str):
     """
     With the finetuned model we will encode the test set and store it
     """
