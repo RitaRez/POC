@@ -21,3 +21,4 @@ warc3-wet-clueweb09==0.2.5
 wget==3.2
 wrapt==1.15.0
 zlib-state==0.1.5
+sentence_transformers==2.2.2
