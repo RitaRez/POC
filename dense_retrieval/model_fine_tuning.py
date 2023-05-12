@@ -1,8 +1,8 @@
 import json, torch, time, torch
 import pandas as pd
 
-from sentence_transformers import SentenceTransformer
-from sentence_transformers import InputExample
+from sentence_transformers import SentenceTransformer, losses
+from sentence_transformers.readers import InputExample
 
 from torch.utils.data import DataLoader
 
