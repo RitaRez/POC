@@ -3,11 +3,13 @@ HeapDict==1.0.1
 hnswlib==0.7.0
 ijson==3.2.0.post0
 multiset==2.1.1
+numpy==1.24.2
 pyjnius==1.4.2
 python-dateutil==2.8.2
 pytrec-eval-terrier==0.5.5
 pytz==2023.3
 PyYAML==6.0
+os==3.6.0
 six==1.16.0
 soupsieve==2.4
 threadpoolctl==3.1.0
