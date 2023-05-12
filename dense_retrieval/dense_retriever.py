@@ -1,5 +1,6 @@
 import json, torch, time, torch, hnswlib
 import pandas as pd
+import numpy as np
 
 from sentence_transformers import SentenceTransformer
 from torch.utils.data import DataLoader
