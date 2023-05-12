@@ -55,7 +55,7 @@ def encode_test_set(corpus: dict, queries: dict, test: pd.DataFrame, test_path: 
     """
     With the finetuned model we will encode the test set and store it
     """
-
+    count = 0
     test_data = []
     for index, row in test.iterrows():  
         query_id = row['query_id']; movie_id = row['movie_id']; label = float(row['label'])
