@@ -1,5 +1,6 @@
 cbor==1.0.0
 HeapDict==1.0.1
+hnswlib==0.7.0
 ijson==3.2.0.post0
 multiset==2.1.1
 pyjnius==1.4.2
