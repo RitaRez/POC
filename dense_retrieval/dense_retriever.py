@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 from torch.utils.data import DataLoader
 
 
-def build_index(embeddings: np.ndarray) -> hnswlib.Index:
+def build_index(embeddings: np.ndarray):
     """
     Build the index for the embeddings with distance being cosine
     """
@@ -30,7 +30,7 @@ def build_index(embeddings: np.ndarray) -> hnswlib.Index:
     p.set_ef(50) # ef should always be > k
 
 
-def retrieve_from_index(p: hnswlib.Index, query_embeddings: np.ndarray, k: int) -> list[list[int]]:
+def retrieve_from_index(p, query_embeddings: np.ndarray, k: int) -> list[list[int]]:
     """
     Retrieve the k nearest neighbours from the index
     """
