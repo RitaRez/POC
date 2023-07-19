@@ -16,7 +16,7 @@ def read_corpus(corpus_path: str) -> dict[str]:
         for line in f:    
             film = json.loads(line)            
             # films_data[film['id']] =  film['text'] # film['title'] + ' ' + film['text'] + ' ' + film['genres'] + ' ' + film['startYear']
-            new_text = film['text'].split()[:80]
+            new_text = film['text'].split()[:512]
             films_data[film['id']] = ' '.join(new_text)
 
     return films_data
@@ -30,8 +30,10 @@ def read_queries(queries_path: str) -> dict[str]:
     queries = {}
     with open(queries_path, 'r') as f:
         for line in f:    
-            query = json.loads(line)            
-            queries[query['id']] = query['title'] + ' ' + query['description']
+            query = json.loads(line)       
+            new_title = query['title'].split()[:512]
+            new_description = query['description'].split()[:512]     
+            queries[query['id']] = ' '.join(new_title) + ' ' + ' '.join(new_description)
 
     return queries
 

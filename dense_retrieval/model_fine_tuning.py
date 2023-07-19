@@ -19,23 +19,16 @@ def train_model(train_examples: list[InputExample], model_path: str, sentences1:
     model_name = "all-MiniLM-L6-v2"
     model = SentenceTransformer(model_name, device='cuda')
 
-    train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=8)
+    train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
     train_loss = losses.CosineSimilarityLoss(model)
 
-    num_epochs = 5
-    for epoch in range(num_epochs):
-
-        model.fit(
-            train_objectives=[(train_dataloader, train_loss)],
-            epochs = 5,
-            evaluator=evaluator,
-            evaluation_steps = 200,
-            warmup_steps = 100
-        )
-
-        print(f"Evaluation Results for epoch {epoch}:")
-        print("Similarity Score: {:.4f}".format(evaluator.best_score()))
-        print("Threshold: {:.4f}".format(evaluator.best_threshold()))
+    model.fit(
+        train_objectives=[(train_dataloader, train_loss)],
+        epochs = 25,
+        evaluator=evaluator,
+        evaluation_steps = 500,
+        warmup_steps = 100
+    )
         
     model.save(model_path)
     
