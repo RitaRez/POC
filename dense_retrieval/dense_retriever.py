@@ -30,6 +30,7 @@ def build_index(embeddings: np.ndarray):
     p.set_ef(50) # ef should always be > k
 
 
+
 def retrieve_from_index(p, query_embeddings: np.ndarray, k: int) -> list[list[int]]:
     """
     Retrieve the k nearest neighbours from the index
