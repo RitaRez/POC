@@ -7,30 +7,32 @@ from sentence_transformers.readers import InputExample
 from torch.utils.data import DataLoader
 
 
-def train_model(train_examples: list[InputExample], model_path: str, sentences1: list[str], sentences2: list[str], scores: list[float]):
+def train_model(batch_size: int, epochs: int, train_examples: list[InputExample], model_path: str, sentences1: list[str], sentences2: list[str], scores: list[float]):
     """
     Train the model
     """
 
-    evaluator = evaluation.BinaryClassificationEvaluator(sentences1, sentences2, scores, write_csv="../data/finetune_results.csv")
+    evaluator = evaluation.BinaryClassificationEvaluator(sentences1, sentences2, scores, write_csv = True)
 
 
     # model_name = "thatdramebaazguy/roberta-base-MITmovie-squad"
     model_name = "all-MiniLM-L6-v2"
     model = SentenceTransformer(model_name, device='cuda')
 
-    train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
+    train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=batch_size)
     train_loss = losses.CosineSimilarityLoss(model)
 
     model.fit(
         train_objectives=[(train_dataloader, train_loss)],
-        epochs = 25,
+        epochs = epochs,
         evaluator=evaluator,
-        evaluation_steps = 500,
-        warmup_steps = 100
+        evaluation_steps = 2000,
+        warmup_steps = math.ceil(len(train_dataloader) * 4 * 0.1), 
+        output_path = model_path, 
+        checkpoint_path = "../data/checkpoints/"
     )
         
-    model.save(model_path)
+    # model.save(model_path)
     
     return model
 
