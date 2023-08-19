@@ -5,8 +5,7 @@ from pyserini.search import FaissSearcher
 import torch
 from pygaggle.rerank.base import Query, Text
 import numpy as np
-import json
-
+import json, pytrec_eval
 
 def get_bm25(test_queries: str = '../data/queries.json', index_filepath: str = 'indexes/corpus_index', k: int = 1000):
     """
@@ -130,3 +129,20 @@ def get_data(searcher, test_queries):
     del needed
 
     return test_queries, doc_index
+
+
+def evaluate_results(results, qrels_file_path: str):
+    """
+    Will evaluate sucess@1000, dcg and mrr
+    """
+
+    with open(qrels_file_path) as f:
+        qrel = pytrec_eval.parse_qrel(f)
+
+    evaluator = pytrec_eval.RelevanceEvaluator(
+        qrel, {'sucess_1000', 'dcg', 'recip_rank'}
+    )
+
+
+#main
+format_trec_style(df_to_format='submission.csv', submission_name='bm25')
